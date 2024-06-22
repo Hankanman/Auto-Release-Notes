@@ -1,7 +1,8 @@
 """ This module contains all the enums used in the application. """
 
 from enum import Enum
-from modules.config import DEVOPS_API_VERSION
+from dataclasses import dataclass
+from typing import Dict, Any
 
 
 class WorkItemType(Enum):
@@ -9,8 +10,12 @@ class WorkItemType(Enum):
     Represents the type of work item.
     """
 
+    BUG = "Bug"
     EPIC = "Epic"
     FEATURE = "Feature"
+    TASK = "Task"
+    USER_STORY = "User Story"
+    PRODUCT_BACKLOG_ITEM = "Product Backlog Item"
     OTHER = "Other"
 
 
@@ -27,9 +32,10 @@ class LogLevel(Enum):
     INFO = "INFO"
     WARNING = "WARNING"
     ERROR = "ERROR"
+    DEBUG = "DEBUG"
 
 
-class WorkItemField(Enum):
+class Field(Enum):
     """
     Enum representing the different fields of a work item.
     """
@@ -40,6 +46,20 @@ class WorkItemField(Enum):
     COMMENTS = "System.Comments"
     PARENT = "System.Parent"
     WORK_ITEM_TYPE = "System.WorkItemType"
+    AREA_PATH = "System.AreaPath"
+    TEAM_PROJECT = "System.TeamProject"
+    STATE = "System.State"
+    REASON = "System.Reason"
+    ASSIGNED_TO = "System.AssignedTo"
+    CREATED_DATE = "System.CreatedDate"
+    CREATED_BY = "System.CreatedBy"
+    CHANGED_DATE = "System.ChangedDate"
+    CHANGED_BY = "System.ChangedBy"
+    PRIORITY = "Microsoft.VSTS.Common.Priority"
+    SEVERITY = "Microsoft.VSTS.Common.Severity"
+    VALUE_AREA = "Microsoft.VSTS.Common.ValueArea"
+    ITERATION_PATH = "System.IterationPath"
+    TAGS = "System.Tags"
 
 
 class ResponseStatus(Enum):
@@ -73,25 +93,50 @@ class OutputFormat(Enum):
     PDF = "pdf"
 
 
-class APIEndpoint(Enum):
+class WorkItemState(Enum):
     """
-    Enum class representing different API endpoints.
+    Enum representing the different states of a work item.
     """
 
-    WORK_ITEM_TYPES = (
-        "/{org_name}/{project_name}/_apis/wit/workitemtypes?api-version="
-        + DEVOPS_API_VERSION
-    )
-    WIQL = (
-        "/{org_name}/{project_name}/_apis/wit/wiql/{query_id}?api-version="
-        + DEVOPS_API_VERSION
-    )
-    WORK_ITEMS = (
-        "/{org_name}/{project_name}/_apis/wit/workitems?ids={ids}&$expand=all&api-version="
-        + DEVOPS_API_VERSION
-    )
-    WORK_ITEM = (
-        "/{org_name}/{project_name}/_apis/wit/workitems/{parent_id}?api-version="
-        + DEVOPS_API_VERSION
-    )
-    COMPLETIONS = "/chat/completions"
+    NEW = "New"
+    ACTIVE = "Active"
+    APPROVED = "Approved"
+    COMMITTED = "Committed"
+    DONE = "Done"
+    REMOVED = "Removed"
+
+
+@dataclass
+class Icon:
+    """Represents an icon for a work item."""
+
+    url: str
+
+
+@dataclass
+class Link:
+    """Represents a link for a work item."""
+
+    href: str
+
+
+# pylint: disable=invalid-name
+@dataclass
+class Links:
+    """Represents the links for a work item."""
+
+    html: Link
+    workItemIcon: Icon
+    workItemComments: Link
+
+
+@dataclass
+class WorkItem:
+    """Represents a work item."""
+
+    name: str
+    icon: Icon
+    id: int
+    fields: Dict[Field, Any]
+    _links: Links
+    url: str

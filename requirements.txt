@@ -1,2 +1,4 @@
 aiohttp
 python-dotenv
+pydantic
+datamodel_code_generator

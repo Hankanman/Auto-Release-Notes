@@ -1,6 +1,8 @@
 # Project specific files
 releases/
-
+tests/*.json
+src/defs/json/*.json
+dummy_file.md
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
@@ -124,6 +126,7 @@ celerybeat.pid
 
 # Environments
 .env
+.env.test
 .venv
 env/
 venv/

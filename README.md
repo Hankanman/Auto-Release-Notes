@@ -1,6 +1,7 @@
 # Azure DevOps Release Notes Generator
 
 [![Pylint](https://github.com/hankanman/Auto-Release-Notes/actions/workflows/pylint.yml/badge.svg)](https://github.com/hankanman/Auto-Release-Notes/actions/workflows/pylint.yml)
+[![Python package](https://github.com/Hankanman/Auto-Release-Notes/actions/workflows/python-package.yml/badge.svg)](https://github.com/Hankanman/Auto-Release-Notes/actions/workflows/python-package.yml)
 
 This script generates release notes for a given release version of a solution in Azure DevOps. It retrieves work items from Azure DevOps, summarizes them using GPT, and outputs the release notes in Markdown and HTML formats.
 
@@ -84,7 +85,7 @@ You will need a PAID Open AI API key to run the script, support for other method
 
 ## Run as Azure DevOps Pipeline
 
-1. Copy the `Auto-Release-Notes.yml` file from [the pipelines directory of this repo](/pipelines)
+1. Copy the `Auto-Release-Notes.yml` file from [the pipelines directory of this repo](https://github.com/hankanman/Auto-Release-Notes/pipelines)
 2. Add it to the DevOps Repo you wish to run the notes for, it is recommended this is on the main branch of the repo, the trigger is set to run on update of the main branch by default
 3. Create a new pipeline in Azure DevOps
 4. Select "Azure Repos Git"
@@ -188,7 +189,7 @@ If the `.env` file does not exist, it will be generated with blank values on the
 To run the script, execute the following command in your terminal:
 
 ```bash
-python main.py
+python -m src.main
 ```
 
 The script will generate the release notes in the specified output folder in both Markdown and HTML formats.

@@ -87,7 +87,6 @@ steps:
       MODEL_BASE_URL=${{parameters.modelBaseUrl}}
       DEVOPS_BASE_URL="https://dev.azure.com"
       SOFTWARE_SUMMARY="$SOFTWARE_SUMMARY"
-      DESIRED_WORK_ITEM_TYPES="${{parameters.desiredWorkItemTypes}}"
       OUTPUT_FOLDER="${{parameters.outputFolder}}"
       DEVOPS_API_VERSION="6.0"
       EOF
